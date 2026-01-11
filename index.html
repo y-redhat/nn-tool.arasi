@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>位置情報サービス</title>
+</head>
+<body>
+    <h1>位置情報を利用したサービス</h1>
+    
+    <button id="locationBtn">位置情報を許可してサービスを利用</button>
+    
+    <div id="status"></div>
+    
+    <script>
+        document.getElementById('locationBtn').addEventListener('click', function() {
+            if (!navigator.geolocation) {
+                document.getElementById('status').innerHTML = 
+                    'お使いのブラウザは位置情報に対応していません';
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    
+                    // サーバーに位置情報を送信
+                    fetch('/api/save-location', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            latitude: lat,
+                            longitude: lng,
+                            timestamp: new Date().toISOString()
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('status').innerHTML = 
+                            '位置情報を取得しました！ダウンロードを開始します...';
+                        
+                        // ダウンロード開始（例：PDFファイル）
+                        setTimeout(() => {
+                            window.location.href = 'https://ex.com/sample.pdf';
+                        }, 1000);
+                    });
+                },
+                function(error) {
+                    let message = '位置情報の取得に失敗しました: ';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            message += 'ユーザーが拒否しました';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            message += '位置情報が利用できません';
+                            break;
+                        case error.TIMEOUT:
+                            message += 'タイムアウトしました';
+                            break;
+                        default:
+                            message += '不明なエラー';
+                    }
+                    document.getElementById('status').innerHTML = message;
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0
+                }
+            );
+        });
+    </script>
+</body>
+</html>
